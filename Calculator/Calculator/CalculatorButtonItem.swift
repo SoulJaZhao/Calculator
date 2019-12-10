@@ -29,7 +29,7 @@ enum CalculatorButtonItem {
     case command(Command)
 }
 
-extension CalculatorButtonItem {
+extension CalculatorButtonItem : Hashable {
     var title: String {
         switch self {
         case .digit(let value): return String(value)

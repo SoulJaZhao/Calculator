@@ -10,36 +10,26 @@ import SwiftUI
 
 struct ContentView: View {
     
+    var body: some View {
+        VStack(spacing: 8) {
+            CalculateButtonRow(row: [.command(.clear), .command(.flip), .command(.percent), .op(.divide)])
+            CalculateButtonRow(row: [.digit(7), .digit(8), .digit(9), .op(.multiply)])
+            CalculateButtonRow(row: [.digit(4), .digit(5), .digit(6), .op(.minus)])
+            CalculateButtonRow(row: [.digit(1), .digit(2), .digit(3), .op(.plus)])
+        }
+    }
+}
+
+struct CalculateButtonRow: View {
+    
+    let row: [CalculatorButtonItem]
     
     var body: some View {
       HStack {
-        CalculatorButton(
-          title: "1",
-          size: CGSize(width: 88, height: 88),
-          backgroundColorName: "digitBackground")
-          {
-            print("Button: 1")
-          }
-        CalculatorButton(
-          title: "2",
-          size: CGSize(width: 88, height: 88),
-          backgroundColorName: "digitBackground")
-        {
-          print("Button: 2")
-        }
-        CalculatorButton(
-          title: "3",
-          size: CGSize(width: 88, height: 88),
-          backgroundColorName: "digitBackground")
-        {
-          print("Button: 3")
-        }
-        CalculatorButton(
-          title: "+",
-          size: CGSize(width: 88, height: 88),
-          backgroundColorName: "operatorBackground")
-        {
-          print("Button: +")
+        ForEach(row, id: \.self) { item in
+            CalculatorButton.init(title: item.title, size: item.size, backgroundColorName: item.backgroundColorName) {
+                print("\(item.title)")
+            }
         }
       }
     }
