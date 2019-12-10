@@ -40,7 +40,16 @@ extension CalculatorButtonItem : Hashable {
     }
     
     var size: CGSize {
-        CGSize(width: 88, height: 88)
+        switch self {
+        case .digit(let value):
+            if value == 0 {
+                return CGSize(width: 88 * 2, height: 88)
+            }
+            break
+        default:
+            break
+        }
+        return CGSize(width: 88, height: 88)
     }
     
     var backgroundColorName: String {
