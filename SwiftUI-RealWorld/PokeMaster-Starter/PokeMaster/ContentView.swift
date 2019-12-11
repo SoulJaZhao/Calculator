@@ -28,28 +28,46 @@ struct PokemonInfoRow: View {
                 Spacer()
                 VStack(alignment: .trailing) {
                     Text("\(model.name)")
+                        .font(.title)
+                        .fontWeight(.black)
+                        .foregroundColor(.white)
                     Text("\(model.nameEN)")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
                 }
             }
+            .padding(.top, 12)
+            
             HStack {
                 Spacer()
                 Button(action: {
-                    
+                    print("fav")
                 }) {
-                    Text("Fav")
+                    Image(systemName: "star")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                        .frame(width: 30, height: 30, alignment: .center)
                 }
                 Button(action: {
-                    
+                    print("panel")
                 }) {
-                    Text("Panel")
+                    Image(systemName: "chart.bar")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                        .frame(width: 30, height: 30, alignment: .center)
                 }
                 Button(action: {
-                    
+                    print("web")
                 }) {
-                    Text("Web")
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                        .frame(width: 30, height: 30, alignment: .center)
                 }
             }
+            .padding(.bottom, 12)
         }
+        .background(Color.green)
     }
 }
 
