@@ -16,7 +16,7 @@ struct ContentView: View {
 
 struct PokemonInfoRow: View {
     let model:PokemonViewModel
-    @State var expanded:Bool
+    let expanded:Bool
     
     var body: some View {
         VStack {
@@ -83,9 +83,6 @@ struct PokemonInfoRow: View {
         .animation(
             Animation.spring(response: 0.55, dampingFraction: 0.425, blendDuration: 0.0)
         )
-        .onTapGesture {
-            self.expanded.toggle()
-        }
     }
 }
 
@@ -104,10 +101,18 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct PokemonList: View {
+    @State var expandingIndex:Int?
+    
     var body: some View {
         ScrollView {
             ForEach(PokemonViewModel.all) { (pokemon) in
-                PokemonInfoRow(model: pokemon, expanded: false)
+                PokemonInfoRow(model: pokemon, expanded: self.expandingIndex == pokemon.id ? true : false).onTapGesture {
+                    if (self.expandingIndex == pokemon.id) {
+                        self.expandingIndex = nil
+                    } else {
+                        self.expandingIndex = pokemon.id
+                    }
+                }
             }
         }
     }
