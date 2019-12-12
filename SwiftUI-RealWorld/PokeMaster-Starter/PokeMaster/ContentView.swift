@@ -10,11 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            PokemonInfoRow(model: PokemonViewModel.sample(id: 1), expanded: false)
-            PokemonInfoRow(model: PokemonViewModel.sample(id: 21), expanded: true)
-            PokemonInfoRow(model: PokemonViewModel.sample(id: 25), expanded: false)
-        }
+        PokemonList()
     }
 }
 
@@ -104,5 +100,15 @@ struct ToolButtonModifier: ViewModifier {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct PokemonList: View {
+    var body: some View {
+        ScrollView {
+            ForEach(PokemonViewModel.all) { (pokemon) in
+                PokemonInfoRow(model: pokemon, expanded: false)
+            }
+        }
     }
 }
