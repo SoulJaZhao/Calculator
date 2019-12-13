@@ -114,6 +114,11 @@ struct PokemonList: View {
                     }
                 }
             }
-        }
+        }.overlay(
+            VStack(content: {
+                Spacer()
+                PokemonInfoPanel(model: .sample(id: 1))
+            }).edgesIgnoringSafeArea(.bottom)
+        )
     }
 }
