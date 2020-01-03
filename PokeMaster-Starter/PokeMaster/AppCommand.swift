@@ -21,10 +21,12 @@ struct LoginAppCommand: AppCommand {
     func execute(in store: Store) {
         _ = LoginRequest(email: email, password: password).publisher.sink(receiveCompletion: { (complete) in
             if case .failure(let error) = complete {
-                
+                store.dispatch(
+                    .accountBehaviorDone(result: .failure(error))
+                )
             }
         }, receiveValue: { (user) in
-            
+            store.dispatch(AppAction.accountBehaviorDone(result: .success(user)))
         })
     }
 }
