@@ -12,12 +12,15 @@ enum AppError: Error, Identifiable {
     var id: String { localizedDescription }
 
     case passwordWrong
+    case networkFailed(Error)
 }
 
 extension AppError: LocalizedError {
     var localizedDescription: String {
         switch self {
         case .passwordWrong: return "密码错误"
+        case .networkFailed(let error):
+            return error.localizedDescription
         }
     }
 }
