@@ -59,6 +59,27 @@ class Store: ObservableObject {
             appState.settings.loginUser = nil
         case .emailValid(let valid):
             appState.settings.isEmailValid = valid
+         // 1
+        case .loadPokemons:
+            if appState.pokemonList.loadingPokemons {
+                break
+            }
+            appState.pokemonList.loadingPokemons = true
+            appCommand = LoadPokemonsCommand()
+            
+        // 2
+        case .loadPokemonsDone(let result):
+            switch result {
+            case .success(let models):
+                appState.pokemonList.pokemons =
+                    // 3
+                    Dictionary(
+                        uniqueKeysWithValues: models.map { ($0.id, $0) }
+                )
+            case .failure(let error):
+                // 4
+                print(error)
+            }
         }
 
         return (appState, appCommand)

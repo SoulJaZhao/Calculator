@@ -11,6 +11,28 @@ import Foundation
 
 struct AppState {
     var settings = Settings()
+    
+    // PokemonList
+    var pokemonList = PokemonList()
+}
+
+extension AppState {
+  struct PokemonList {
+    @FileStorage(
+        directory: .cachesDirectory,
+        fileName: "pokemons.json"
+    )
+    
+    var pokemons: [Int: PokemonViewModel]?
+    var loadingPokemons = false
+    
+    var allPokemonsByID: [PokemonViewModel] {
+      guard let pokemons = pokemons?.values else {
+        return []
+      }
+      return pokemons.sorted { $0.id < $1.id }
+    }
+  }
 }
 
 extension AppState {
@@ -91,6 +113,7 @@ extension AppState {
         
         // Add checker object
         var checker = AccountChecker()
+        
         
         var showEnglishName = true
         var sorting = Sorting.id
