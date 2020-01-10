@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 
 enum AppError: Error, Identifiable {
     var id: String { localizedDescription }
@@ -20,18 +19,5 @@ extension AppError: LocalizedError {
         switch self {
         case .passwordWrong: return "密码错误"
         }
-    }
-}
-
-class DisposeBag {
-    private var values: [AnyCancellable] = []
-    func add(_ value: AnyCancellable) {
-        values.append(value)
-    }
-}
-
-extension AnyCancellable {
-    func add(to bag: DisposeBag) {
-        bag.add(self)
     }
 }
